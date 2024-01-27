@@ -39,11 +39,12 @@ connect:
 
 	if len(connString) == 0 {
 		fmt.Println("Database connection string cannot be empty")
+		goto connect
 	}
 	parsedURL, err := url.Parse(connString)
 	if err != nil {
 		fmt.Println("Error parsing database connection string:", err)
-		return
+		goto connect
 	}
 
 	client := NewInsightSDK()

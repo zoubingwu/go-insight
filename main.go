@@ -12,6 +12,7 @@ import (
 
 	"github.com/briandowns/spinner"
 	"github.com/jedib0t/go-pretty/v6/table"
+	"github.com/kanmu/go-sqlfmt/sqlfmt"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
@@ -119,7 +120,12 @@ connect:
 				log.Fatalln(err)
 			}
 			s.Disable()
-			fmt.Println(resp.Result.Result.Sql)
+
+			sql, err := sqlfmt.Format(resp.Result.Result.Sql, &sqlfmt.Options{})
+			if err != nil {
+				fmt.Println("Error parsing sql: ", err.Error())
+			}
+			fmt.Println(strings.TrimSpace(sql))
 
 			t := table.NewWriter()
 

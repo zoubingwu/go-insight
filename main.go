@@ -118,7 +118,7 @@ connect:
 
 			t := table.NewWriter()
 
-			headers := lo.Map[Column, string](resp.Result.Result.Columns, func(c Column, _ int) string {
+			headers := lo.Map(resp.Result.Result.Columns, func(c Column, _ int) string {
 				return c.Col
 			})
 			h := make(table.Row, len(headers)+1)

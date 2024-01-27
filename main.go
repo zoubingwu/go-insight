@@ -51,7 +51,7 @@ connect:
 
 	s := spinner.New(spinner.CharSets[14], 100*time.Millisecond)
 	s.Suffix = fmt.Sprintf(" Testing connection for %s%s...", parsedURL.Host, parsedURL.Path)
-	go s.Start()
+	s.Start()
 
 	testResult, err := client.TestConnection(connString)
 
@@ -65,7 +65,11 @@ connect:
 		goto connect
 	}
 
+	s.Disable()
+	fmt.Printf("Database %s%s connected\n", parsedURL.Host, parsedURL.Path)
+
 	s.Suffix = " Creating context..."
+	s.Enable()
 
 	ctxResult, err := client.CreateContext(connString)
 	if err != nil {
@@ -92,7 +96,7 @@ connect:
 		}
 
 		s.Suffix = " Thinking..."
-		go s.Enable()
+		s.Enable()
 
 		resp, err := client.BreakdownUserQuestion(input, sessionId)
 		if err != nil {

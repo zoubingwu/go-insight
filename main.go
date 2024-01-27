@@ -97,7 +97,8 @@ connect:
 		resp, err := client.BreakdownUserQuestion(input, sessionId)
 		if err != nil {
 			s.Disable()
-			log.Fatalln(err)
+			fmt.Println("Error occured: ", err.Error())
+			continue
 		}
 
 		if resp.Result.Status == "failed" {

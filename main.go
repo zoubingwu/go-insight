@@ -124,6 +124,7 @@ connect:
 			sql, err := sqlfmt.Format(resp.Result.Result.Sql, &sqlfmt.Options{})
 			if err != nil {
 				fmt.Println("Error parsing sql: ", err.Error())
+				continue
 			}
 			fmt.Println(strings.TrimSpace(sql))
 
